@@ -31,3 +31,11 @@ swarm-report/setup-mining-*.md
 
 # Figma access tokens / per-user state
 .figma/local/
+
+# Build tooling
+.turbo/
+.pnpm-store/
+*.tsbuildinfo
+
+# Plugin handshake state
+~/.figma-agent-plugin/

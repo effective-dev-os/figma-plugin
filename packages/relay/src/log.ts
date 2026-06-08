@@ -23,14 +23,16 @@ function format(level: string, message: string, fields?: LogFields): string {
   return `${ts} [${level}] ${message}`;
 }
 
+// All output goes to stderr. When relay is bundled inside the MCP server process,
+// stdout is the JSON-RPC framing channel — any non-RPC bytes there break the protocol.
 export const log = {
   info(message: string, fields?: LogFields): void {
-    console.log(format('INFO', message, fields));
+    process.stderr.write(format('INFO', message, fields) + '\n');
   },
   warn(message: string, fields?: LogFields): void {
-    console.warn(format('WARN', message, fields));
+    process.stderr.write(format('WARN', message, fields) + '\n');
   },
   error(message: string, fields?: LogFields): void {
-    console.error(format('ERROR', message, fields));
+    process.stderr.write(format('ERROR', message, fields) + '\n');
   },
 };

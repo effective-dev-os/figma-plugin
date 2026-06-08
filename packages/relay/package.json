@@ -6,6 +6,9 @@
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "bin": {
+    "figma-agent-relay": "./dist/cli.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,8 +23,8 @@
   },
   "scripts": {
     "build": "tsc -b",
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js",
+    "dev": "tsx watch src/cli.ts",
+    "start": "node dist/cli.js",
     "test": "vitest run",
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist *.tsbuildinfo"

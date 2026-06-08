@@ -1,0 +1,41 @@
+{
+  "name": "@figma-agent/shared",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Shared TypeScript types for plugin, relay, and MCP server. Mirrors Figma API field names verbatim.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./reactions": {
+      "types": "./dist/reactions.d.ts",
+      "import": "./dist/reactions.js"
+    },
+    "./mapping": {
+      "types": "./dist/mapping.d.ts",
+      "import": "./dist/mapping.js"
+    },
+    "./wire": {
+      "types": "./dist/wire.d.ts",
+      "import": "./dist/wire.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -b --watch",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "lint": "tsc --noEmit",
+    "test": "echo 'no tests yet'"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

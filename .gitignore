@@ -1,0 +1,33 @@
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Logs (may contain Figma node content)
+*.log
+logs/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# Editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Test artifacts
+playwright-report/
+test-results/
+coverage/
+
+# Local install of mining artifacts (per /setup skill)
+swarm-report/setup-mining-*.md
+
+# Figma access tokens / per-user state
+.figma/local/

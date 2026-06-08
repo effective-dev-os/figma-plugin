@@ -1,0 +1,13 @@
+{
+  "harness_version": "77cdc0394620bd457d4fe33ccbb126e8acfec64d",
+  "harness_source": "git@github.com:effective-dev-os/harness.git@77cdc0394620bd457d4fe33ccbb126e8acfec64d",
+  "installed_at": "2026-06-08T06:42:47Z",
+  "install_method": "skill:/setup",
+  "project_type": 2,
+  "primary_stack": [
+    "web-frontend-react-vite",
+    "node-typescript-mcp",
+    "playwright-e2e"
+  ],
+  "touch_policy": "fresh-install"
+}

@@ -2,33 +2,43 @@
 
 Figma plugin + local MCP bridge + design-reviewer agent. Routes around Code Connect on the Professional plan. See `.memory-bank/product-overview/brief-2026-06-08.md` for the full picture.
 
-## Quick start
+## Install (recommended — via npx)
 
 ```bash
-# 1. install + build
-pnpm install
-pnpm build
-
-# 2. start MCP server (bundles WS relay in-process)
-pnpm start
+# 1. MCP server — no clone, no build
+npx -y @effective-dev-os/figma-mcp
 # stderr prints: [mcp-server] channel-id: <32-char hex>
-# copy that hex.
+```
 
-# 3. wire Claude Code .mcp.json (the server spawns itself via this command)
+Wire to Claude Code via `.mcp.json`:
+
+```json
 {
   "mcpServers": {
     "figma-agent": {
-      "command": "node",
-      "args": ["/abs/path/to/figma-agent-plugin/packages/mcp-server/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@effective-dev-os/figma-mcp"]
     }
   }
 }
-
-# 4. Figma Desktop
-#    Plugins → Development → Import plugin from manifest…
-#    select: packages/plugin/dist/manifest.json
-#    paste the channel ID into the plugin UI → Connect → status turns green.
 ```
+
+Then load the Figma plugin in Figma Desktop:
+
+- **Plugins → Development → Import plugin from manifest…**
+- Select `packages/plugin/dist/manifest.json` from a local clone (or a release artifact when available).
+- Paste the channel ID into the plugin UI → Connect → status turns green.
+
+## Install (from source)
+
+```bash
+pnpm install && pnpm build
+pnpm start
+# or with HTTP transport too:
+pnpm start:http
+```
+
+Same `.mcp.json` snippet, but `command: "node"` and `args: ["/abs/path/.../packages/mcp-server/dist/index.js"]`.
 
 ## Architecture (one process)
 

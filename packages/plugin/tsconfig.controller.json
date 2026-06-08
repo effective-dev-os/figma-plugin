@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ESNext",
+    "lib": ["ES2017"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "typeRoots": ["./node_modules", "./node_modules/@types"],
+    "types": ["@figma/plugin-typings"],
+    "composite": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo.controller"
+  },
+  "include": [
+    "src/code.ts",
+    "src/controller/**/*.ts",
+    "src/types/**/*.d.ts"
+  ],
+  "references": [
+    { "path": "../shared" }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@figma-agent/plugin",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build --config vite.config.plugin.ts && vite build --config vite.config.ui.ts && cp manifest.json dist/manifest.json",
+    "dev": "concurrently \"vite build --config vite.config.plugin.ts --watch\" \"vite build --config vite.config.ui.ts --watch\"",
+    "test": "vitest run",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@figma-agent/shared": "workspace:*",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.115.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.0.0",
+    "typescript": "^5.6.3",
+    "vite": "^7.3.5",
+    "vite-plugin-singlefile": "^2.3.0",
+    "vitest": "^4.1.8"
+  }
+}

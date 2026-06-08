@@ -2,8 +2,8 @@
   "name": "Effective ↔ Figma Bridge",
   "id": "effective-figma-bridge",
   "api": "1.0.0",
-  "main": "dist/code.js",
-  "ui": "dist/ui.html",
+  "main": "code.js",
+  "ui": "ui.html",
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "networkAccess": {

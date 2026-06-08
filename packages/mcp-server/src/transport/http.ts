@@ -5,8 +5,8 @@ import { logInfo } from '../log.js';
 
 const DEFAULT_HTTP_PORT = 3056;
 
-export async function attachHttpTransport(server: McpServer): Promise<void> {
-  const port = Number(process.env['MCP_HTTP_PORT'] ?? DEFAULT_HTTP_PORT);
+export async function attachHttpTransport(server: McpServer, portOverride?: number): Promise<void> {
+  const port = portOverride ?? Number(process.env['MCP_HTTP_PORT'] ?? DEFAULT_HTTP_PORT);
 
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: () => crypto.randomUUID(),

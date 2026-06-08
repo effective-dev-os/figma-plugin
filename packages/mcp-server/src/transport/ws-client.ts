@@ -11,8 +11,7 @@ import type {
 } from '@figma-agent/shared/wire';
 
 const DEFAULT_TIMEOUT_MS = Number(process.env['WS_TIMEOUT_MS'] ?? '60000');
-const RELAY_PORT = Number(process.env['RELAY_PORT'] ?? '3055');
-const RELAY_URL = `ws://127.0.0.1:${RELAY_PORT}`;
+const DEFAULT_RELAY_PORT = Number(process.env['RELAY_PORT'] ?? '3055');
 
 // Exponential backoff: 1s → 2s → 4s → 8s → 30s cap
 const BACKOFF_BASE_MS = 1_000;
@@ -24,25 +23,34 @@ interface PendingRequest {
   timer: ReturnType<typeof createInactivityTimer>;
 }
 
+export interface WsClientOptions {
+  relayPort?: number;
+  relayHost?: string;
+}
+
 export class WsClient {
   private ws: WebSocket | null = null;
   private readonly sessionId: string = crypto.randomUUID();
   private readonly channelId: string;
+  private readonly relayUrl: string;
   private reconnectAttempt = 0;
   private closing = false;
   private readonly pending = new Map<string, PendingRequest>();
 
-  constructor(channelId: string) {
+  constructor(channelId: string, opts: WsClientOptions = {}) {
     this.channelId = channelId;
+    const host = opts.relayHost ?? '127.0.0.1';
+    const port = opts.relayPort ?? DEFAULT_RELAY_PORT;
+    this.relayUrl = `ws://${host}:${port}`;
   }
 
   connect(): void {
     if (this.closing) return;
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) return;
 
-    logInfo(`WsClient connecting to relay ${RELAY_URL} (attempt ${this.reconnectAttempt + 1})`);
+    logInfo(`WsClient connecting to relay ${this.relayUrl} (attempt ${this.reconnectAttempt + 1})`);
 
-    const socket = new WebSocket(RELAY_URL);
+    const socket = new WebSocket(this.relayUrl);
     this.ws = socket;
 
     const connTimeout = setTimeout(() => {

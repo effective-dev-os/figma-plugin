@@ -15,7 +15,12 @@
     "lint": "pnpm -r --filter './packages/*' lint",
     "typecheck": "tsc -b",
     "test": "pnpm -r --filter './packages/*' test",
-    "clean": "pnpm -r --filter './packages/*' clean && rm -rf node_modules"
+    "clean": "pnpm -r --filter './packages/*' clean && rm -rf node_modules",
+    "start": "node packages/mcp-server/dist/index.js",
+    "start:http": "node packages/mcp-server/dist/index.js --http"
+  },
+  "bin": {
+    "figma-agent": "./packages/mcp-server/dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",

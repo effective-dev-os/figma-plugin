@@ -17,6 +17,9 @@ importers:
 
   packages/mcp-server:
     dependencies:
+      '@figma-agent/relay':
+        specifier: workspace:*
+        version: link:../relay
       '@figma-agent/shared':
         specifier: workspace:*
         version: link:../shared

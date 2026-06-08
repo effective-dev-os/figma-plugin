@@ -37,5 +37,11 @@ swarm-report/setup-mining-*.md
 .pnpm-store/
 *.tsbuildinfo
 
+# Publish staging dir (esbuild bundle output)
+dist-pkg/
+
+# tsc UI emit (Vite builds the real UI bundle)
+packages/plugin/dist-ui/
+
 # Plugin handshake state
 ~/.figma-agent-plugin/

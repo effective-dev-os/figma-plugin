@@ -5,7 +5,7 @@ Derived from [brief-2026-06-08.md](brief-2026-06-08.md) §10. Status updated as 
 | ID | Name | Status | Effort | Notes |
 |----|------|--------|--------|-------|
 | M0 | Pre-flight | in-progress | — | Get `can_edit` from Ony; resolve open questions §9; pick pilot landing |
-| M1 | Plugin MVP | pending | 3–5 dev-days | Fork grab repo; slim write-tools; add `get_reactions` + `get_code_mapping`; plugin UI |
+| M1 | Plugin MVP | pending | 7–10 dev-days | Port grab (D-007) + cherry-pick arinspunk; feature-flag writes (D-008); harden get_reactions + plugin-side deltas (D-006); get_code_mapping repo-file read (D-005); stdio+HTTP (D-004); packages/shared scaffold; security pre-audit (D-009). Acceptance gates: swarm-report/m1-acceptance.md |
 | M2 | Code-gen loop | pending | 2–3 dev-days | Claude Code via `.mcp.json`; workflow doc; smoke test |
 | M3 | Animation verification | pending | 2 dev-days | Playwright MCP wiring; `assertAnimation(locator, spec)`; frame-by-frame keyframes |
 | M4 | Agent-reviewer MVP | pending | 3–5 dev-days | `rules.json` schema v1 (10–15 rules); `review_node`; HTML report; optional `set_annotation` |

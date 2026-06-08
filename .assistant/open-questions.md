@@ -5,19 +5,16 @@
 ---
 
 ## OQ-001 — MCP transport: stdio only, or stdio + HTTP?
-**Status:** open
-**Context:** Brief §9.1. Stdio = canonical Claude Code local. HTTP needed for remote agents (future, not pilot).
-**Resolution lean:** ship both behind a flag from day one — SDK supports it cheaply. Confirm in M1 planning.
+**Status:** resolved 2026-06-08 → D-004
+**Resolution:** stdio + HTTP day-one, HTTP binds 127.0.0.1, no auth (defers OQ-008).
 
 ## OQ-002 — Mapping persistence: repo file vs Figma `sharedPluginData` vs hybrid?
-**Status:** open
-**Context:** Brief §5.1. File in repo = git-tracked, reviewable, CI-gatable. `sharedPluginData` = bound to file, no git noise. Hybrid = file is source of truth + plugin data mirror for in-Figma UI indicator.
-**Resolution lean:** hybrid. CI gate verifies consistency.
+**Status:** resolved 2026-06-08 (M1 scope) → D-005
+**Resolution:** M1 repo-file source-of-truth, read-only. `sharedPluginData` mirror deferred to M2.
 
 ## OQ-003 — `Reaction.deltas`: compute in plugin or send raw subtrees to agent?
-**Status:** open
-**Context:** Brief §5.2. Plugin-side diff = heavier plugin, lighter agent payload, deterministic. Agent-side diff = simpler plugin, larger token bill, drift risk.
-**Resolution lean:** compute in plugin. Brief §4.3 motion path.
+**Status:** resolved 2026-06-08 → D-006
+**Resolution:** compute in plugin. Property set v1: position, size, scale, opacity, fills, strokes, effects, cornerRadius, rotation.
 
 ## OQ-004 — Spring presets (Gentle/Quick/Bouncy/Slow) → Framer Motion mapping
 **Status:** open
@@ -40,9 +37,9 @@
 **Resolution lean:** v1 reads at MCP-tool-call time (no caching); v2 add LRU + watch.
 
 ## OQ-008 — Authentication between plugin and WS relay
-**Status:** open
-**Context:** Brief §9.8. Channel ID = routing, not auth. localhost-only by default.
-**Resolution lean:** none for pilot; document risk; add HMAC if we ever bind to non-loopback.
+**Status:** partial-resolution 2026-06-08 → D-004
+**Resolution (M1):** none. HTTP/WS binds 127.0.0.1 only. Trust localhost.
+**Still open (post-pilot):** HMAC token if/when binding to non-loopback interface.
 
 ## OQ-009 — Cross-file scan via Figma REST API and PAT storage
 **Status:** open
@@ -53,3 +50,20 @@
 **Status:** open
 **Context:** Risk register "performance on 1000+ frames". HTML report becomes unreadable.
 **Resolution lean:** paginate report; top-N most severe per node.
+
+---
+
+## OQ-011 — Reaction shape naming in `packages/shared`: match Figma API verbatim?
+**Status:** open
+**Context:** Brief §5.2 sample uses `transitions[]` + `durationSec`. Figma API exposes `Reaction.actions[]` (deprecated singular `action`) + `Transition.duration` (seconds, no suffix).
+**Resolution lean:** match Figma exactly (`actions`, `duration`). Lower translation cost, fewer mental hops. Confirm in M1 packages/shared scaffolding.
+
+## OQ-012 — Plugin runtime support matrix: Figma Desktop only vs Desktop + web?
+**Status:** open
+**Context:** Brief §7.2 manifest uses `ws://localhost:3055`. Works in Figma Desktop (http://) only. Figma web (https://) blocks ws:// under CSP mixed-content. wss:// needs self-signed cert + manifest-validation workaround.
+**Resolution lean:** Figma Desktop only for pilot. Document in M1 README. Web support deferred post-pilot.
+
+## OQ-013 — MCP SDK v1 → v2 migration timing
+**Status:** open
+**Context:** Current stable `@modelcontextprotocol/sdk@1.29.0` (2026-03-30). v2.0 stable ETA 2026-07-28. v2 breaking: JSON-RPC `-32602` for unknown tools, `tasks` → `capabilities.tasks`, zod removed from peerDeps, deprecated `.tool/.prompt/.resource` signatures removed.
+**Resolution lean:** pin 1.29.0 through M5. Deliberate v2 migration after M3 or post-pilot. Re-verify before M2 starts (INVARIANT §6).

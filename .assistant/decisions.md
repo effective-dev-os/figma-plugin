@@ -163,3 +163,23 @@
 - Plugin UI React+Vite + vite-plugin-singlefile (1d)
 - M1 acceptance gates + smoke test (1d)
 **Rationale:** Original 3-5d predated architect breakdown. Architect + skeptic + researcher findings imply 7-10d realistic. Update milestones.md M1 row.
+
+---
+
+## D-011 — Channel ID defaults to "default", plugin auto-connects (relaxes D-009A mitigation 10)
+**Date:** 2026-06-08
+**Status:** accepted
+**Decision:**
+- Plugin UI no longer prompts for a channel ID. On mount it auto-connects to channel `"default"`.
+- `ChannelInput.tsx` removed from plugin UI surface.
+- Relay shape check loosened from `/^[a-f0-9]{32}$/` to `/^[a-z0-9][a-z0-9_-]{0,63}$/` so non-hex labels are valid.
+- MCP server channel ID defaults to `"default"` unless `FIGMA_CHANNEL` env var overrides (multi-instance escape hatch).
+**Rationale:**
+- D-004 already commits to "localhost-bind only, no auth" — channel ID as a shared secret added zero security on top of the localhost trust boundary it was protecting.
+- D-009A mitigation 10 originally specified a 128-bit per-session secret. In practice, the friction (copy-paste 32-char hex on every restart) outweighed the marginal benefit on a single-user dev machine.
+- Multi-instance scenarios (OQ-005) — when needed — can opt into custom channel names via `FIGMA_CHANNEL=<name>` env.
+**Supersedes:** D-009A mitigation 10 (no-op in single-user pilot).
+**Out of scope:**
+- Multi-user shared workstations (already broken by fixed port 3055).
+- LAN-bound relay (still forbidden by D-009A mitigation 5).
+**Re-verification:** if pilot expands to concurrent agents on one file (OQ-005), revisit channel naming + collision handling.

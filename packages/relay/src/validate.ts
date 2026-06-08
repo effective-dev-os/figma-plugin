@@ -1,9 +1,12 @@
 // Shape validation and M1 write-method block list (D-008).
 
-const HEX_32 = /^[0-9a-f]{32}$/;
+// Channel name shape — accepts the reserved "default" name plus simple ASCII
+// channel labels (multi-instance use case). On a localhost-bind relay (D-004)
+// the channel is routing, not auth, so the hex requirement was relaxed.
+const CHANNEL_NAME = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 
 export function isValidChannelId(s: string): boolean {
-  return HEX_32.test(s);
+  return CHANNEL_NAME.test(s);
 }
 
 // All write methods from upstream grab tool list per security audit.

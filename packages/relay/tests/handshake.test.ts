@@ -78,7 +78,7 @@ describe('join handshake', () => {
     const ws = connect();
     await waitOpen(ws);
 
-    send(ws, { type: 'join', channelId: 'too-short', role: 'mcp' });
+    send(ws, { type: 'join', channelId: 'Has Capital!', role: 'mcp' });
     const err = await nextMessage(ws);
 
     expect(err.type).toBe('join_error');

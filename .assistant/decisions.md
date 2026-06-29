@@ -183,3 +183,34 @@
 - Multi-user shared workstations (already broken by fixed port 3055).
 - LAN-bound relay (still forbidden by D-009A mitigation 5).
 **Re-verification:** if pilot expands to concurrent agents on one file (OQ-005), revisit channel naming + collision handling.
+
+
+---
+
+## D-012 — Harness synced
+
+**Date:** 2026-06-09
+**Status:** accepted
+**Decision:** Harness updated `77cdc039` → `21984018`.
+**Counts:** +62 ~0 -0 ↻0; 0 conflicts.
+**Template updates pending manual merge:** none
+**Source:** `git@github.com:effective-dev-os/harness.git@219840187e71e406e2aad204bb5d3c32520db6ad`
+
+
+---
+
+## D-013 — Harness synced
+
+**Date:** 2026-06-09
+**Status:** accepted
+**Decision:** Harness updated `21984018` → `05e59d0f`.
+**Counts:** +0 ~2 -0 ↻0; 0 conflicts.
+**Template updates pending manual merge:** none
+**Source:** `git@github.com:effective-dev-os/harness.git@05e59d0f6b12c232a1dc48550e2a8df42678f170`
+
+
+## D-014 — Harness targeted sync: reflect ritual + Stop-gates
+**Date:** 2026-06-29
+**Status:** accepted
+**Decision:** Added /reflect skill + evidence-gate.sh + slop-gate.sh; wired both into settings.json Stop chain. Partial sync (not a full version bump; harness_version unchanged).
+**Source:** `git@github.com:effective-dev-os/harness.git@6ea46b4d`
